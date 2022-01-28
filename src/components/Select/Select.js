@@ -10,13 +10,13 @@ const Select = ({ label, value, onChange, children }) => {
 
   return (
     <Wrapper>
+      <NativeSelect aria-label={label} value={value} onChange={onChange}>
+        {children}
+      </NativeSelect>
       <Decorator>
         {displayedValue}
         <DownArrow />
       </Decorator>
-      <NativeSelect aria-label={label} value={value} onChange={onChange}>
-        {children}
-      </NativeSelect>
     </Wrapper>
   )
 }
@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 `
 
 const NativeSelect = styled.select`
-  /* appearance: none; */
+  appearance: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -46,6 +46,11 @@ const Decorator = styled.div`
   padding: 12px 52px 12px 16px;
   font-size: 1rem;
   font-family: "Roboto", sans-serif;
+
+  ${NativeSelect}:focus + & {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
 `
 
 const DownArrow = styled(Icon).attrs({
@@ -58,6 +63,7 @@ const DownArrow = styled(Icon).attrs({
   top: 50%;
   transform: translateY(-50%);
   color: currentColor;
+  pointer-events: none;
 `
 
 export default Select
