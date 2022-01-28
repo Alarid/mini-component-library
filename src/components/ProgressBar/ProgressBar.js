@@ -14,7 +14,10 @@ export default function ProgressBar({ value, size }) {
       aria-valuemax="100"
       style={{ ...SIZES[size] }}
     >
-      <Bar value={value} />
+      <VisuallyHidden>{value}%</VisuallyHidden>
+      <BarWrapper>
+        <Bar value={value} />
+      </BarWrapper>
     </Wrapper>
   )
 }
@@ -27,11 +30,18 @@ const Wrapper = styled.div`
   padding: var(--padding);
 `
 
+const BarWrapper = styled.div`
+  border-radius: 4px;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+`
+
 const Bar = styled.div`
   background-color: ${COLORS.primary};
   width: ${(props) => props.value}%;
   height: 100%;
-  border-radius: 4px ${(props) => (props.value > 98 ? "4px 4px" : "0 0")} 4px;
+  border-radius: 4px 0 0 4px;
 `
 
 const SIZES = {
@@ -47,7 +57,7 @@ const SIZES = {
   },
   large: {
     "--border-radius": "8px",
-    "--height": "24px",
+    "--height": "16px",
     "--padding": "4px",
   },
 }
