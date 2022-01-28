@@ -10,20 +10,20 @@ const Select = ({ label, value, onChange, children }) => {
 
   return (
     <Wrapper>
-      <NativeSelect aria-label={label} value={value} onChange={onChange}>
-        {children}
-      </NativeSelect>
       <Decorator>
         {displayedValue}
         <DownArrow />
       </Decorator>
+      <NativeSelect aria-label={label} value={value} onChange={onChange}>
+        {children}
+      </NativeSelect>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
   position: relative;
-  width: fit-content;
+  width: max-content;
   color: ${COLORS.gray700};
   &:hover {
     color: ${COLORS.black};
@@ -41,12 +41,11 @@ const NativeSelect = styled.select`
 `
 
 const Decorator = styled.div`
-  --backgroundColor: ${COLORS.transparentGray15};
-  background-color: var(--backgroundColor);
-  border-color: var(--backgroundColor);
+  background-color: ${COLORS.transparentGray15};
   border-radius: 8px;
-  width: fit-content;
   padding: 12px 52px 12px 16px;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
 `
 
 const DownArrow = styled(Icon).attrs({
