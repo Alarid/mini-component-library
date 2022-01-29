@@ -13,9 +13,9 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
       <Input
         type="text"
         placeholder={placeholder}
-        style={{ "--width": width + "px", ...SIZES[size] }}
+        style={{ "--width": width + "px", ...STYLES[size] }}
       />
-      <IconWrapper>
+      <IconWrapper style={{ "--height": `${ICON_SIZES[size]}px` }}>
         <Icon id={icon} size={ICON_SIZES[size]} />
       </IconWrapper>
     </Wrapper>
@@ -24,35 +24,41 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
 
 const ICON_SIZES = { small: 16, large: 24 }
 
-const SIZES = {
+const STYLES = {
   small: {
     "--fontSize": `${14 / 16}rem`,
     "--paddingLeft": `${ICON_SIZES.small + 8}px`,
+    "--height": `${24 / 16}rem`,
+    "--borderThickness": `${1 / 16}rem`,
   },
   large: {
     "--fontSize": `${18 / 16}rem`,
     "--paddingLeft": `${ICON_SIZES.large + 12}px`,
+    "--height": `${36 / 16}rem`,
+    "--borderThickness": `${2 / 16}rem`,
   },
 }
 
 const Wrapper = styled.label`
+  display: block;
   position: relative;
-`
-
-const Input = styled.input`
-  padding: 4px 0;
-  padding-left: var(--paddingLeft);
-  border: 0;
-  border-bottom: 1px solid ${COLORS.black};
-  font-family: "Roboto", sans-serif;
-  font-size: var(--fontSize);
-  font-weight: 700;
   color: ${COLORS.gray700};
-  width: var(--width);
-
   &:hover {
     color: ${COLORS.black};
   }
+`
+
+const Input = styled.input`
+  padding-left: var(--paddingLeft);
+  border: 0;
+  border-bottom: solid ${COLORS.black};
+  border-bottom-width: var(--borderThickness);
+  font-family: "Roboto", sans-serif;
+  font-size: var(--fontSize);
+  font-weight: 700;
+  color: inherit;
+  width: var(--width);
+  height: var(--height);
 
   &::placeholder {
     font-weight: 400;
@@ -66,13 +72,11 @@ const Input = styled.input`
 
 const IconWrapper = styled.div`
   position: absolute;
-  bottom: 2px;
-  left: 0;
-  color: ${COLORS.gray700};
-
-  ${Input}:hover + & {
-    color: ${COLORS.black};
-  }
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: var(--height);
+  color: inherit;
 `
 
 export default IconInput
